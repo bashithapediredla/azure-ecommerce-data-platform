@@ -1,0 +1,205 @@
+# E-Commerce Data Engineering Platform — Architecture
+
+## 1. Project Overview
+
+This project is an end-to-end e-commerce data engineering platform built using Microsoft Azure, Apache Spark, PySpark, and modern data engineering technologies.
+
+The platform collects data from multiple sources, stores the raw data in Azure Data Lake Storage Gen2, processes the data using Databricks and PySpark, and creates business-ready datasets for analytics.
+
+The final data is made available through Azure Synapse Analytics and visualized using Power BI.
+
+---
+
+## 2. Project Objective
+
+The main objectives of this project are:
+
+- Ingest data from multiple data sources.
+- Store raw data in a centralized cloud data lake.
+- Clean and validate data using PySpark.
+- Transform raw data into analytical datasets.
+- Implement a Bronze, Silver, and Gold data architecture.
+- Demonstrate scalable data processing using Apache Spark.
+- Load business-ready data into Azure Synapse Analytics.
+- Build dashboards for business analysis using Power BI.
+- Demonstrate real-world data engineering concepts such as data quality, incremental loading, and pipeline orchestration.
+
+---
+
+## 3. Data Sources
+
+The project uses multiple simulated data sources.
+
+### SQL Database
+
+Customer and order data are treated as data originating from a relational SQL database.
+
+Examples:
+
+- Customers
+- Orders
+
+### CSV Files
+
+Product and return information are provided as CSV files.
+
+Examples:
+
+- Products
+- Returns
+
+### REST API
+
+Payment information is simulated as a REST API response.
+
+Example:
+
+- Payments
+
+### Event Data
+
+Website activity is represented as event data.
+
+Example events include:
+
+- Page views
+- Product views
+- Add to cart
+- Purchases
+- Searches
+
+---
+
+## 4. High-Level Architecture
+
+The overall data flow is:
+
+Data Sources  
+↓  
+Azure Data Factory  
+↓  
+Azure Data Lake Storage Gen2  
+↓  
+Bronze Layer  
+↓  
+Azure Databricks / PySpark  
+↓  
+Silver Layer  
+↓  
+PySpark Transformations  
+↓  
+Gold Layer  
+↓  
+Azure Synapse Analytics  
+↓  
+Power BI
+
+---
+
+## 5. Architecture Components
+
+### Azure Data Factory
+
+Azure Data Factory is used as the data ingestion and orchestration service.
+
+Responsibilities:
+
+- Connect to different data sources.
+- Extract data from source systems.
+- Move data into Azure Data Lake Storage Gen2.
+- Schedule and orchestrate data pipelines.
+- Monitor pipeline execution.
+
+---
+
+### Azure Data Lake Storage Gen2
+
+ADLS Gen2 is used as the central storage layer for the data platform.
+
+It stores data at different stages of processing:
+
+- Bronze
+- Silver
+- Gold
+
+The data lake provides scalable cloud storage for large amounts of structured and semi-structured data.
+
+---
+
+### Azure Databricks
+
+Azure Databricks is used as the main data processing platform.
+
+Responsibilities:
+
+- Process large datasets.
+- Run Apache Spark workloads.
+- Execute PySpark transformations.
+- Clean and validate data.
+- Create Silver and Gold datasets.
+
+---
+
+### PySpark
+
+PySpark is used to perform data transformations.
+
+Examples include:
+
+- Removing duplicates.
+- Handling null values.
+- Correcting data types.
+- Standardizing text.
+- Validating values.
+- Joining datasets.
+- Aggregating sales information.
+- Creating business metrics.
+
+---
+
+### Azure Synapse Analytics
+
+Synapse Analytics provides the analytical SQL layer.
+
+Gold datasets can be made available through Synapse SQL so that analytical queries and reporting tools can access the processed data.
+
+---
+
+### Power BI
+
+Power BI is used to create business dashboards and visualizations.
+
+Example metrics:
+
+- Total sales
+- Number of orders
+- Revenue by product
+- Revenue by category
+- Customer spending
+- Product performance
+- Return analysis
+- Daily sales trends
+
+---
+
+## 6. Medallion Architecture
+
+The project follows a Bronze, Silver, and Gold architecture.
+
+### Bronze Layer
+
+The Bronze layer contains raw data copied from the source systems.
+
+Characteristics:
+
+- Raw data
+- Minimal transformation
+- Preserves the original source information
+- Used as a historical data layer
+
+Example:
+
+```text
+Source Orders
+     ↓
+Bronze Orders
