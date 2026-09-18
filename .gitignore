@@ -1,0 +1,27 @@
+# Source data
+source_data/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+
+# Secrets
+*.key
+*.pem
+
+# Databricks
+.databricks/
+
+# IDE
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
