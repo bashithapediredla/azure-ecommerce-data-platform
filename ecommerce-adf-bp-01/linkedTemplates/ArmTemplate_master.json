@@ -1,0 +1,91 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ecommerce-adf-bp-01"
+		},
+		"ls_adls_datalake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_adls_datalake'"
+		},
+		"ls_sql_ecommerce_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_sql_ecommerce'"
+		},
+		"ls_adls_datalake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://ecommercedatalakebp01.dfs.core.windows.net/"
+		},
+		"ls_rest_payments_api_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://payments-api-bp01-hhavevaaetftdrd3.southeastasia-01.azurewebsites.net/api/get_payments"
+		},
+		"ls_sql_ecommerce_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "ecommerce-sql-server-bp01.database.windows.net"
+		},
+		"ls_sql_ecommerce_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "ecommerce-db"
+		},
+		"ls_sql_ecommerce_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "ecommerce-adf-bp-01_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ls_adls_datalake_accountKey": {
+						"value": "[parameters('ls_adls_datalake_accountKey')]"
+					},
+					"ls_sql_ecommerce_password": {
+						"value": "[parameters('ls_sql_ecommerce_password')]"
+					},
+					"ls_adls_datalake_properties_typeProperties_url": {
+						"value": "[parameters('ls_adls_datalake_properties_typeProperties_url')]"
+					},
+					"ls_rest_payments_api_properties_typeProperties_url": {
+						"value": "[parameters('ls_rest_payments_api_properties_typeProperties_url')]"
+					},
+					"ls_sql_ecommerce_properties_typeProperties_server": {
+						"value": "[parameters('ls_sql_ecommerce_properties_typeProperties_server')]"
+					},
+					"ls_sql_ecommerce_properties_typeProperties_database": {
+						"value": "[parameters('ls_sql_ecommerce_properties_typeProperties_database')]"
+					},
+					"ls_sql_ecommerce_properties_typeProperties_userName": {
+						"value": "[parameters('ls_sql_ecommerce_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

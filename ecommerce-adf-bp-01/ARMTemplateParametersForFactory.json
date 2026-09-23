@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ecommerce-adf-bp-01"
+		},
+		"ls_adls_datalake_accountKey": {
+			"value": ""
+		},
+		"ls_sql_ecommerce_password": {
+			"value": ""
+		},
+		"ls_adls_datalake_properties_typeProperties_url": {
+			"value": "https://ecommercedatalakebp01.dfs.core.windows.net/"
+		},
+		"ls_rest_payments_api_properties_typeProperties_url": {
+			"value": "https://payments-api-bp01-hhavevaaetftdrd3.southeastasia-01.azurewebsites.net/api/get_payments"
+		},
+		"ls_sql_ecommerce_properties_typeProperties_server": {
+			"value": "ecommerce-sql-server-bp01.database.windows.net"
+		},
+		"ls_sql_ecommerce_properties_typeProperties_database": {
+			"value": "ecommerce-db"
+		},
+		"ls_sql_ecommerce_properties_typeProperties_userName": {
+			"value": "sqladmin"
+		}
+	}
+}
