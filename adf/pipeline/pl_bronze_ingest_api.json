@@ -49,7 +49,7 @@
 							"filesystem": "bronze",
 							"filename": "payments.json",
 							"foldername": {
-								"value": "     @concat('payments/ingestion_date=',formatDateTime(utcnow(),'yyyy-MM-dd'))",
+								"value": "@concat('payments/ingestion_date=',formatDateTime(utcnow(),'yyyy-MM-dd'))",
 								"type": "Expression"
 							}
 						}
