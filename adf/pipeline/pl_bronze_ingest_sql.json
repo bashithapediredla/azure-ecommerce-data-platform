@@ -70,7 +70,7 @@
 									"parameters": {
 										"filesystem": "bronze",
 										"foldername": {
-											"value": "     @concat(item(),'/ingestion_date=',formatDateTime(utcnow(),'yyyy-MM-dd'))",
+											"value": "@concat(item(),'/ingestion_date=',formatDateTime(utcnow(),'yyyy-MM-dd'))",
 											"type": "Expression"
 										},
 										"filename": {
