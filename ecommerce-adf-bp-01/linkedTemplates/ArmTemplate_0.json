@@ -139,6 +139,51 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_adls_json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls_datalake",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"filesystem": {
+						"type": "string"
+					},
+					"filename": {
+						"type": "string"
+					},
+					"foldername": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().foldername",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().filesystem",
+							"type": "Expression"
+						}
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls_datalake')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ds_adls_parquet')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -185,6 +230,24 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_rest_payments')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_rest_payments_api",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_rest_payments_api')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ds_sql_table')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -217,6 +280,78 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ls_sql_ecommerce')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_bronze_ingest_api')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "copy_api_to_bronze",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "RestSource",
+								"httpRequestTimeout": "00:01:40",
+								"requestInterval": "00.00:00:00.010",
+								"requestMethod": "GET",
+								"paginationRules": {
+									"supportRFC5988": "true"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_rest_payments",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_adls_json",
+								"type": "DatasetReference",
+								"parameters": {
+									"filesystem": "bronze",
+									"filename": "payments.json",
+									"foldername": {
+										"value": "@concat('payments/ingestion_date=',formatDateTime(utcnow(),'yyyy-MM-dd'))",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_rest_payments')]",
+				"[concat(variables('factoryId'), '/datasets/ds_adls_json')]"
 			]
 		},
 		{
