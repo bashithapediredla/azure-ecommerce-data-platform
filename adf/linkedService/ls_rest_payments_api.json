@@ -1,0 +1,14 @@
+{
+	"name": "ls_rest_payments_api",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://payments-api-bp01-hhavevaaetftdrd3.southeastasia-01.azurewebsites.net/api/get_payments",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDBCODZCODg0LUZBMTYtNDg1QS04NzU4LUQ4NERFNUY5Q0NEQ19mNjFlM2M4My05OTM4LTRiZWQtOGVjZS1jNzNjNDIzYjIyZTEiDQp9"
+		}
+	}
+}

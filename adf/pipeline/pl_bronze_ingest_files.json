@@ -1,0 +1,96 @@
+{
+	"name": "pl_bronze_ingest_files",
+	"properties": {
+		"activities": [
+			{
+				"name": "for_each_bronze_files",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@json('[\"products\",\"returns\",\"website_events\"]')",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "copy_source_to_bronze",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true
+									},
+									"formatSettings": {
+										"type": "BinaryReadSettings"
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_adls_binary",
+									"type": "DatasetReference",
+									"parameters": {
+										"foldername": {
+											"value": "@concat('')",
+											"type": "Expression"
+										},
+										"filename": {
+											"value": "@concat(item(),'.csv')",
+											"type": "Expression"
+										},
+										"filesystem": {
+											"value": "source-files",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_adls_binary",
+									"type": "DatasetReference",
+									"parameters": {
+										"foldername": {
+											"value": "@concat(item(),'/ingestion_date=',formatDateTime(utcnow(),'yyyy-MM-dd'))",
+											"type": "Expression"
+										},
+										"filename": {
+											"value": "@concat(item(),'.csv')",
+											"type": "Expression"
+										},
+										"filesystem": {
+											"value": "bronze",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-09-23T07:25:28Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,15 @@
+{
+	"name": "ecommerce-adf-bp-01",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "f72f86cf-6f1b-420b-9232-00b32ff01270",
+		"tenantId": "c500b13b-3d4e-4942-a060-e049e0bf672b"
+	}
+}
