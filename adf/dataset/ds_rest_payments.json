@@ -1,0 +1,12 @@
+{
+	"name": "ds_rest_payments",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_rest_payments_api",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}
