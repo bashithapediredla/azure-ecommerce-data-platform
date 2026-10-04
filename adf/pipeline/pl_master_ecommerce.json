@@ -121,6 +121,33 @@
 					"referenceName": "ls_databricks",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "nb_serving",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "nb_gold",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/bashithapediredla224@gmail.com/azure-ecommerce-data-platform/notebooks/04_serving"
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"annotations": []
