@@ -8,11 +8,17 @@
 		"ls_adls_datalake_accountKey": {
 			"value": ""
 		},
+		"ls_databricks_accessToken": {
+			"value": ""
+		},
 		"ls_sql_ecommerce_password": {
 			"value": ""
 		},
 		"ls_adls_datalake_properties_typeProperties_url": {
 			"value": "https://ecommercedatalakebp01.dfs.core.windows.net/"
+		},
+		"ls_databricks_properties_typeProperties_existingClusterId": {
+			"value": "0928-011633-fl7x2xsr"
 		},
 		"ls_rest_payments_api_properties_typeProperties_url": {
 			"value": "https://payments-api-bp01-hhavevaaetftdrd3.southeastasia-01.azurewebsites.net/api/get_payments"

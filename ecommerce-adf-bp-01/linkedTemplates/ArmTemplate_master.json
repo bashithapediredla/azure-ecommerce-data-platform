@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_adls_datalake'"
 		},
+		"ls_databricks_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'ls_databricks'"
+		},
 		"ls_sql_ecommerce_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ls_sql_ecommerce'"
@@ -18,6 +22,10 @@
 		"ls_adls_datalake_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://ecommercedatalakebp01.dfs.core.windows.net/"
+		},
+		"ls_databricks_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0928-011633-fl7x2xsr"
 		},
 		"ls_rest_payments_api_properties_typeProperties_url": {
 			"type": "string",
@@ -65,11 +73,17 @@
 					"ls_adls_datalake_accountKey": {
 						"value": "[parameters('ls_adls_datalake_accountKey')]"
 					},
+					"ls_databricks_accessToken": {
+						"value": "[parameters('ls_databricks_accessToken')]"
+					},
 					"ls_sql_ecommerce_password": {
 						"value": "[parameters('ls_sql_ecommerce_password')]"
 					},
 					"ls_adls_datalake_properties_typeProperties_url": {
 						"value": "[parameters('ls_adls_datalake_properties_typeProperties_url')]"
+					},
+					"ls_databricks_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('ls_databricks_properties_typeProperties_existingClusterId')]"
 					},
 					"ls_rest_payments_api_properties_typeProperties_url": {
 						"value": "[parameters('ls_rest_payments_api_properties_typeProperties_url')]"
